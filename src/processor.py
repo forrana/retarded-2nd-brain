@@ -5,6 +5,9 @@ import hashlib
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import requests
+import yaml
+import json
+import re
 from pathlib import Path
 
 VAULT_PATH = os.getenv("VAULT_PATH", "/obsidian")
@@ -121,7 +124,6 @@ class NoteProcessor:
 
     def clean_markdown(self, text):
         """Remove markdown formatting for cleaner AI input"""
-        import re
         # Remove code blocks
         text = re.sub(r'```.*?```', '', text, flags=re.DOTALL)
         # Remove inline code
@@ -169,7 +171,6 @@ class NoteProcessor:
 
         # Parse JSON from result
         try:
-            import json
             # Clean up the response to extract JSON
             json_start = result.find('{')
             json_end = result.rfind('}') + 1
@@ -184,7 +185,6 @@ class NoteProcessor:
         # Parse existing frontmatter
         existing = {}
         if existing_frontmatter:
-            import yaml
             try:
                 existing = yaml.safe_load(existing_frontmatter)
             except:
@@ -206,8 +206,6 @@ class NoteProcessor:
                 if key not in frontmatter:
                     frontmatter[key] = value
 
-        # Convert to YAML
-        import yaml
         return "---\n" + yaml.dump(frontmatter, sort_keys=False, default_flow_style=False).strip() + "\n---"
 
     def start_watching(self):
