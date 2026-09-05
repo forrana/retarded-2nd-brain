@@ -153,14 +153,14 @@ class NoteProcessor:
         {{
             "categories": ["category1", "category2"],
             "summary": "Brief summary of the note",
-            "tags": ["tag1", "tag2"],
+            "tags": ["tag1", "tag2", "tag-3", "tag-N"],
             "related_notes": ["Note Name 1", "Note Name 2"]
         }}
 
         Guidelines:
         - categories: 2-4 broad topics this note belongs to
         - summary: 1-2 sentences max
-        - tags: 3-6 specific tags (single words or short phrases)
+        - tags: 3-6 specific tags (single words or short phrases, NOTE phrase should use '-' as a separator no spaces!)
         - related_notes: Names of existing notes this might link to (if any)
         - Use lowercase for categories and tags
         - Be concise but accurate"""
