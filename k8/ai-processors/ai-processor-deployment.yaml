@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-processor
+  template:
+    metadata:
+      labels:
+        app: ai-processor
+    spec:
+      containers:
+      - name: processor
+        image: registry.home/ai-processors/text-processor
+        command: ["python", "/app/processor.py"]
+        volumeMounts:
+        - name: obsidian-vault
+          mountPath: /obsidian/forrana
+        - name: obsidian-vault-lera
+          mountPath: /obsidian/lera
+        - name: obsidian-vault-shared
+          mountPath: /obsidian/shared
+        env:
+        - name: MISTRAL_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: mistral-api-key
+              key: api-key
+        - name: VAULT_PATH
+          value: "/obsidian"
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "256Mi"
+      volumes:
+      - name: obsidian-vault
+        persistentVolumeClaim:
+          claimName: obsidian-vault-pvc
+      - name: obsidian-vault-lera
+        persistentVolumeClaim:
+          claimName: obsidian-vault-lera-pvc
+      - name: obsidian-vault-shared
+        persistentVolumeClaim:
+          claimName: obsidian-vault-shared-pvc

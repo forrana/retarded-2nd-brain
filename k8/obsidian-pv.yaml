@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: obsidian-vault-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi  # Adjust based on your needs
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/mnt/forrana/obsidian/forrana"  # Or your preferred host path
+    type: DirectoryOrCreate
+
+kind: PersistentVolume
+metadata:
+  name: obsidian-vault-lera-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi  # Adjust based on your needs
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/mnt/forrana/obsidian/lera"  # Or your preferred host path
+    type: DirectoryOrCreate
+
+kind: PersistentVolume
+metadata:
+  name: obsidian-vault-shared-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi  # Adjust based on your needs
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/mnt/forrana/obsidian/shared"  # Or your preferred host path
+    type: DirectoryOrCreate

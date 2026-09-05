@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: syncthing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: syncthing
+  template:
+    metadata:
+      labels:
+        app: syncthing
+    spec:
+      containers:
+      - name: syncthing
+        image: syncthing/syncthing:latest
+        ports:
+        - containerPort: 8384
+        - containerPort: 22000
+        - containerPort: 21027
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        volumeMounts:
+        - name: syncthing-config
+          mountPath: /var/syncthing/config
+        - name: obsidian-vault
+          mountPath: /var/syncthing/obsidian/
+        - name: obsidian-vault-lera
+          mountPath: /var/syncthing/obsidian/lera
+        - name: obsidian-vault-shared
+          mountPath: /var/syncthing/obsidian/shared
+      volumes:
+      - name: syncthing-config
+        persistentVolumeClaim:
+          claimName: syncthing-config-pvc
+      - name: obsidian-vault
+        persistentVolumeClaim:
+          claimName: obsidian-vault-pvc
+      - name: obsidian-vault-lera
+        persistentVolumeClaim:
+          claimName: obsidian-vault-lera-pvc
+      - name: obsidian-vault-shared
+        persistentVolumeClaim:
+          claimName: obsidian-vault-shared-pvc

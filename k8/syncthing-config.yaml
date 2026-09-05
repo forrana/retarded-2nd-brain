@@ -1,0 +1,21 @@
+# syncthing-config.yaml (simplified - we'll use env vars)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: syncthing-config
+data:
+  # Empty - Syncthing will create its own config
+  # We'll mount this as a volume for persistence
+  .stignore: |
+    # Syncthing ignore patterns
+    .DS_Store
+    .TemporaryItems
+    .Trashes
+    ._.Trashes
+    .Spotlight-V100
+    .fseventsd
+    Thumbs.db
+    ehthumbs.db
+    *.tmp
+    *.temp
+    ~$*

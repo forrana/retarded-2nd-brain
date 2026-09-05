@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: syncthing-service
+spec:
+  type: NodePort
+  selector:
+    app: syncthing
+  ports:
+    - name: webui
+      port: 8384
+      targetPort: 8384
+      nodePort: 30384  # Access via http://<node-ip>:30384
+      protocol: TCP
+    - name: sync-tcp
+      port: 22000
+      targetPort: 22000
+      nodePort: 32200
+      protocol: TCP
+    - name: sync-udp
+      port: 21027
+      targetPort: 21027
+      nodePort: 32102
+      protocol: UDP
