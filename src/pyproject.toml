@@ -1,0 +1,14 @@
+[project]
+name = "retarded-2nd-brain"
+version = "0.1.0"
+description = "Scripts for 2nd brain processors"
+readme = "README.md"
+authors = [
+    { name = "Aleksei Kuchyn", email = "forrana@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pyyaml>=6.0.3",
+    "requests>=2.34.2",
+    "watchdog>=6.0.0",
+]
